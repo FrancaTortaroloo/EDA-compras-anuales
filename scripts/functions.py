@@ -38,3 +38,4 @@ def renombrar_col(df, nombre):
 #%%
 def tipos_datos(df):
     print(df.dtypes)
+#%%

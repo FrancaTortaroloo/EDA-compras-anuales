@@ -21,7 +21,7 @@ df_completo = func.renombrar_col(df_completo, nom_col)
 df_completo.sample()
 # %%
 #verificar los tipos de datos y hacer cambios donde se requiera
-df_completo = fun.tipos_datos(df_completo)
+df_completo = func.tipos_datos(df_completo)
 # %%
 #convertir la columna precio de object a float
 df_completo['Precio'] = pd.to_numeric(df_completo['Precio'], errors='coerce')
