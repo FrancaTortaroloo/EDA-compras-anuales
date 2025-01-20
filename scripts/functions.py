@@ -39,3 +39,31 @@ def renombrar_col(df, nombre):
 def tipos_datos(df):
     print(df.dtypes)
 #%%
+def reemplazar_valores(df, columna, diccionario_datos):
+    df[columna] = df[columna].replace(diccionario_datos)
+    print(df[columna].unique())
+#%%
+def capitalize(df, columna):
+    df[columna] = df[columna].str.capitalize()
+    print(df)
+#%%
+def eliminar_nulos(df, columna):
+    df = df.dropna(subset=[columna])
+    comprobar_nulos = df[columna].isnull().sum()
+    print(f'La columna tiene: {comprobar_nulos} nulos')
+    return df
+#%%
+def valores_negativos(df, columna):
+    df = df[columna].describe()
+    print(df)
+#%%
+def eliminar_negativos(df, columna):
+    df = df[df[columna]>=0]
+    return df
+#%%
+def guardar_csv(df, nombre):
+    csv = df.to_csv(nombre)
+    print("Csv guardado con éxito!")
+
+
+

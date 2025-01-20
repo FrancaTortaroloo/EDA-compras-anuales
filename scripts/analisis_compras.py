@@ -21,9 +21,63 @@ df_completo = func.renombrar_col(df_completo, nom_col)
 df_completo.sample()
 # %%
 #verificar los tipos de datos y hacer cambios donde se requiera
-df_completo = func.tipos_datos(df_completo)
+d_type = func.tipos_datos(df_completo)
 # %%
-#convertir la columna precio de object a float
-df_completo['Precio'] = pd.to_numeric(df_completo['Precio'], errors='coerce')
-df_completo['Precio'].dtype
+#normalizar datos de la columna categoria
+
+dict_datos = {'Supermercado Otros': 'Supermercado', 
+     'Comida': 'Supermercado', 
+     'Comidas': 'Supermercado', 
+     'Supermercados':'Supermercado',
+     'Carnes': 'Supermercado',
+     'Varios': 'Otros',
+     'Salud/médicos': 'Farmacia'}
+
+reemplazo_categ = func.reemplazar_valores(df_completo, 'Categoria', dict_datos)
 # %%
+#normalizar datos de la columna lugar
+
+dict_datos = {'carrefour': 'Carrefour',
+     'Carrefuour': 'Carrefour' }
+
+reemplazo_lugar = func.reemplazar_valores(df_completo, 'Lugar', dict_datos)
+# %%
+
+#normalizar datos de la columna producto
+
+dict_datos = {'Jamon cocido': 'Jamon', 
+     'Jamon lonchas': 'Jamon', 
+     'Jamon en lonchas': 'Jamon', 
+     'jamon york':'Jamon',
+     'Lonchas jamon': 'Jamon',
+     'Huevo': 'Huevos',
+     'Queso': 'Queso en lonchas',
+     'Queso lonchas': 'Queso en lonchas',
+     'Lonchas queso': 'Queso en lonchas',
+     'Leche desnatada': 'Leche',
+     'Leche semi desnatada': 'Leche',
+     'Leche sin lactosa': 'Leche'
+     }
+
+reemplazo_prod = func.reemplazar_valores(df_completo, 'Producto', dict_datos)
+#%%
+# capitalize en columna lugar y producto
+
+mayus = func.capitalize(df_completo, 'Producto')
+mayus = func.capitalize(df_completo, 'Lugar')
+#%%
+#eliminar nulos de la columna fecha
+nulos = func.eliminar_nulos(df_completo, 'Fecha')
+#%%
+#comprobar valores negativos o fuera de rango en la columna precio
+val_neg = func.valores_negativos(df_completo, 'Precio')
+#al haber valores negativos, vamos a eliminarlos
+df_completo = func.eliminar_negativos(df_completo, 'Precio')
+#%%
+#comprobar que se hayan eliminado
+comprobar = func.valores_negativos(df_completo, 'Precio')
+# %%
+#guardar en csv para ocuparlo cuando quiero continuar con el trabajo y no tener que recargar el código completo
+csv = func.guardar_csv(df_completo, 'compras_anuales.csv')
+
+
